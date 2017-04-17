@@ -30,8 +30,8 @@ Vagrant.configure(2) do |config|
       dev.vm.provider "virtualbox" do |vb|
          vb.gui = true
          vb.name = "rabbit"
-         vb.memory = 4096
-         vb.cpus = 2
+         vb.memory = 2048
+         vb.cpus = 1
       end
    end
 

@@ -14,7 +14,7 @@ There are 2 commands that need to get run. The first creates the host-only netwo
 
 The commands are as follows:
 
-    > hostonly.ps1
+    > ./hostonly.ps1
     > vagrant up dev
 
 ### RabbitMQ
