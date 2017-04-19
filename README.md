@@ -2,9 +2,17 @@
 
 ## Pre-requisites
 
-* PowerShell
-* Vagrant
-* VirtualBox
+* [VirtualBox](https://chocolatey.org/packages/virtualbox)
+* [Vagrant](https://chocolatey.org/packages/vagrant)
+* [Vagrant Host Manager plugin](https://github.com/devopsgroup-io/vagrant-hostmanager)
+
+Install as follows (note - assumes Chocolatey):
+
+    cinst virtualbox
+    cinst vagrant
+    vagrant plugin install vagrant-hostmanager
+
+Once the above things are installed, restart machine.
 
 ## Proxy settings
 
@@ -16,19 +24,19 @@ where ":proxy" is the address of your proxy server.
 
 ## Usage
 
-There are 2 commands that need to get run. The first creates the host-only network (with DHCP disabled) that allows us to statically assign IP addresses to specific servers. The subsequent vagrant script brings up the following dev servers:
-* RabbitMQ server on 192.168.81.2
-* Docker server hosting existing containerised microservices on 192.168.81.3
+There are 3 commands that need to get run as follows:
 
-The commands are as follows:
+    ./hostonly.ps1
+    vagrant up dev
+    vagrant hostmanager
 
-    > ./hostonly.ps1
-    > vagrant up dev
+The first line creates the host-only network (with DHCP disabled) that allows us to statically assign IP addresses to specific servers.
+The second line is the vagrant command that brings up the development environment.
+The third line updates the host file on the guest VMs as well as the host.
 
-### RabbitMQ
+## Servers
 
-To access the RabbitMQ management console navigate to http://192.168.81.2:15672 and login with test/test
-
-### Docker
-
-coming soon
+| Description | IP | DNS |
+| :--- | :--- | :--- |
+| RabbitMQ | 192.168.81.2 | rabbit |
+| Docker | 192.168.81.3 | docker |

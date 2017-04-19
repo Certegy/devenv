@@ -35,6 +35,11 @@ Vagrant.configure(2) do |config|
          # basic settings
          guest.vm.box = server[:box]
          guest.vm.hostname = server[:name]
+         guest.hostmanager.enabled = true
+         guest.hostmanager.manage_host = true
+         guest.hostmanager.manage_guest = true
+         guest.hostmanager.ignore_private_ip = false
+         guest.hostmanager.include_offline = true
 
          # configure NAT/Host-only network. This allows for host->guest, guest->host and guest->guest communication
          guest.vm.network "private_network", ip: server[:ip], :netmask => server[:netmask], auto_config: false
