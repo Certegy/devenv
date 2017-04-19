@@ -44,6 +44,10 @@ Vagrant.configure(2) do |config|
             sed -i 's/:ip/#{server[:ip]}/g' /etc/network/interfaces
             sed -i 's/:netmask/#{server[:netmask]}/g' /etc/network/interfaces
             /etc/init.d/networking start
+         SHELL
+
+         # configure proxy settings
+         guest.vm.provision "shell", inline: <<-SHELL
             if [ -n "#{ENV['HTTP_PROXY']}" ]; then
                cp /vagrant/etc/environment /etc/environment
                sed -i 's/:proxy/#{ENV['HTTP_PROXY']}/g' /etc/environment
