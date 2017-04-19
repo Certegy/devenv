@@ -6,6 +6,14 @@
 * Vagrant
 * VirtualBox
 
+## Proxy settings
+
+If you use a proxy server to access the internet, run the following from an elevated command prompt:
+
+    [Environment]::SetEnvironmentVariable("HTTP_PROXY", ":proxy", "Machine")
+
+where ":proxy" is the address of your proxy server.
+
 ## Usage
 
 There are 2 commands that need to get run. The first creates the host-only network (with DHCP disabled) that allows us to statically assign IP addresses to specific servers. The subsequent vagrant script brings up the following dev servers:
