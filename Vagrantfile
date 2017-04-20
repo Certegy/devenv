@@ -54,13 +54,18 @@ Vagrant.configure(2) do |config|
          # configure proxy settings
          guest.vm.provision "shell", inline: <<-SHELL
             if [ -n "#{ENV['HTTP_PROXY']}" ]; then
-               cp /vagrant/etc/environment /etc/environment
-               sed -i 's/:proxy/#{ENV['HTTP_PROXY']}/g' /etc/environment
-               cp /vagrant/etc/default/docker /etc/default/docker
-               sed -i 's/:proxy/#{ENV['HTTP_PROXY']}/g' /etc/default/docker
+               export http_proxy=#{ENV['HTTP_PROXY']}
+               export https_proxy=#{ENV['HTTP_PROXY']}
+               export no_proxy='no_proxy=localhost,127.0.0.1'
+               echo 'http_proxy="'#{ENV['HTTP_PROXY']}'"' >> /etc/environment
+               echo 'https_proxy="'#{ENV['HTTP_PROXY']}'"' >> /etc/environment
+               echo 'ftp_proxy="'#{ENV['HTTP_PROXY']}'"' >> /etc/environment
+               echo 'no_proxy="localhost,127.0.0.1"' >> /etc/environment
                . /etc/environment
-               cp /vagrant/etc/apt/apt.conf /etc/apt/apt.conf
-               sed -i 's/:proxy/#{ENV['HTTP_PROXY']}/g' /etc/apt/apt.conf
+               touch /etc/apt/apt.conf
+               echo 'acquire::http::proxy "'#{ENV['HTTP_PROXY']}'";' >> /etc/apt/apt.conf
+               echo 'acquire::https::proxy "'#{ENV['HTTP_PROXY']}'";' >> /etc/apt/apt.conf
+               echo 'acquire::ftp::proxy "'#{ENV['HTTP_PROXY']}'";' >> /etc/apt/apt.conf
             fi
          SHELL
 
