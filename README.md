@@ -1,5 +1,10 @@
 # CCP development environment provisioning
 
+## Servers
+
+* **RabbitMQ**: This will be a Ubuntu Xenial 64-bit instance running on a local VirtualBox VM. The reason we'll each provisioning our own RabbitMQ instance is so that we don't have to worry about consuming someone elses messages on a shared instance and we don't have to worry about configuring RabbitMQ virtual hosts.
+* **Docker**: This will be a Windows Server 2016 64-bit instance running on a VirtualBox VM. This needs to run in a VM as not all DEVs are using Windows OS version that supports Docker (i.e. Windows 10).
+
 ## Pre-requisites
 
 * [VirtualBox](https://chocolatey.org/packages/virtualbox)
