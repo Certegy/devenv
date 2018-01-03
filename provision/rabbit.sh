@@ -19,6 +19,6 @@ systemctl start rabbitmq-server
 rabbitmq-plugins enable rabbitmq_management
 
 # see https://stackoverflow.com/questions/22850546/cant-access-rabbitmq-web-management-interface-after-fresh-install/22854222#22854222
-rabbitmqctl add_user test test
+rabbitmqctl add_user test Certegy123_
 rabbitmqctl set_user_tags test administrator
 rabbitmqctl set_permissions -p / test ".*" ".*" ".*"

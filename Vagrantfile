@@ -3,11 +3,21 @@ servers=[
    {
       :name => "rabbit",
       :ip => "192.168.81.2",
+      :port => 15672,
       :netmask => "255.255.255.0",
       :box => "ubuntu/xenial64",
       :memory => 2048,
       :cpus => 1
-   }#,
+   },
+   {
+      :name => "db",
+      :ip => "192.168.81.4",
+      :netmask => "255.255.255.0",
+      :port => 1433,
+      :box => "ubuntu/xenial64",
+      :memory => 4096,
+      :cpus => 2
+   }
    # {
    #    :name => "docker",
    #    :ip => "192.168.81.3",
@@ -15,15 +25,8 @@ servers=[
    #    :box => "ubuntu/xenial64",
    #    :memory => 3072,
    #    :cpus => 1
-   # }#,
-   # {
-   #    :name => "db",
-   #    :ip => "192.168.81.4",
-   #    :netmask => "255.255.255.0",
-   #    :box => "windows",
-   #    :memory => 4096,
-   #    :cpus => 2
    # }
+
 ]
 
 Vagrant.configure(2) do |config|
@@ -40,6 +43,8 @@ Vagrant.configure(2) do |config|
          guest.hostmanager.manage_guest = true
          guest.hostmanager.ignore_private_ip = false
          guest.hostmanager.include_offline = true
+
+         #config.vm.network "forwarded_port", guest: server[:port], host: server[:port], host_ip: "127,0,0,1", id: server[:name]
 
          # configure NAT/Host-only network. This allows for host->guest, guest->host and guest->guest communication
          guest.vm.network "private_network", ip: server[:ip], :netmask => server[:netmask], auto_config: false
@@ -70,6 +75,7 @@ Vagrant.configure(2) do |config|
          SHELL
 
          guest.vm.provision "shell", path: "provision/#{server[:name]}.sh"
+         # guest.vm.provision "shell", path: "provision/clean.sh"
 
          guest.vm.provider "virtualbox" do |vb|
             #vb.gui = true
