@@ -3,6 +3,7 @@
 ## Servers
 
 * **RabbitMQ**: This will be a Ubuntu Xenial 64-bit instance running on a local VirtualBox VM. The reason we'll each provisioning our own RabbitMQ instance is so that we don't have to worry about consuming someone elses messages on a shared instance and we don't have to worry about configuring RabbitMQ virtual hosts.
+* **SQL Server**: This will be a Ubuntu Xenial 64-bit instance running on a local VirtualBox VM.
 * **Docker**: This will be a Windows Server 2016 64-bit instance running on a VirtualBox VM. This needs to run in a VM as not all DEVs are using Windows OS version that supports Docker (i.e. Windows 10).
 
 ## Pre-requisites
@@ -43,9 +44,10 @@ The first line creates the host-only network (with DHCP disabled) that allows us
 The second line is the vagrant command that brings up the development environment.
 The third line updates the host file on the guest VMs as well as the host.
 
-## Servers
+## Server information
 
 | Description | IP | DNS |
 | :--- | :--- | :--- |
 | RabbitMQ | 192.168.81.2 | rabbit |
-| Docker | 192.168.81.3 | docker |
+| SQL Server | 192.168.81.3 | db |
+
